@@ -1,0 +1,17 @@
+services:
+  app:
+    image: wsgi-ddtrace
+    build: .
+    environment:
+      - DD_ENV=prod
+      - DD_SERVICE=hello
+      - DD_TRACE_DEBUG=true
+    ports:
+      - 8080:80
+  ddagent:
+    image: gcr.io/datadoghq/agent:7
+    environment:
+      - DD_HOSTNAME=testing
+      - DD_API_KEY=KEY
+  valkey:
+    image: valkey/valkey:unstable
